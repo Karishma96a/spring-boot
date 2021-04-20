@@ -1,14 +1,12 @@
 package com.employee.demo.controller;
 
 import com.employee.demo.model.Employee;
-import com.employee.demo.model.Schedule;
+import com.employee.demo.model.TrainingPeriod;
 import com.employee.demo.service.EmployeeService;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,35 +22,30 @@ public class EmployeeController {
     @Autowired
     private EmployeeService _employeeService;
 
-    @PostMapping("/employee/create")
+    @PostMapping("/create/employee")
     public ResponseEntity<Object> createEmployee(@RequestBody Employee inEmployee) {
         return _employeeService.addEmployee(inEmployee);
     }
 
-    @GetMapping("/schedule/{employeeId}")
-    public ResponseEntity<Object> getScheduleByEmployeeId(@PathVariable String employeeId) {
-        return _employeeService.getScheduleByEmployeeId(employeeId);
+    @GetMapping("/employee/training-period/{employeeId}")
+    public ResponseEntity<Object> getTrainingPeriodByEmployeeId(@PathVariable String employeeId) {
+        return _employeeService.getTrainingPeriodsByEmployeeId(employeeId);
     }
 
-    @DeleteMapping("/cancel/schedule/{employeeId}/{scheduleId}")
-    public ResponseEntity<Object> cancelScheduleByEmployeeId(@PathVariable String employeeId,
-                                                             @PathVariable Long scheduleId) {
-        return _employeeService.cancelScheduleByEmployeeId(employeeId, scheduleId);
+    @DeleteMapping("employee/cancel/training-period/{employeeId}/{trainingPeriodId}")
+    public ResponseEntity<Object> cancelTrainingPeriodByEmployeeId(@PathVariable String employeeId,
+                                                                   @PathVariable Long trainingPeriodId) {
+        return _employeeService.cancelTrainingPeriodByEmployeeId(employeeId, trainingPeriodId);
     }
 
-    @DeleteMapping("/cancel/schedule/{employeeId}")
-    public ResponseEntity<Object> cancelAllScheduleByEmployeeId(@PathVariable String employeeId) {
-        return _employeeService.cancelAllScheduleByEmployeeId(employeeId);
+    @DeleteMapping("employee/cancel/all-training-period/{employeeId}")
+    public ResponseEntity<Object> cancelAllTrainingPeriodsByEmployeeId(@PathVariable String employeeId) {
+        return _employeeService.cancelAllTrainingPeriodsByEmployeeId(employeeId);
     }
 
-    @PutMapping("update/schedule/{employeeId}")
-    public ResponseEntity<Object> updateScheduleByEmployeeId(@PathVariable String employeeId,
-                                                             @RequestBody Set<Schedule> inScheduleList) {
-        return _employeeService.updateScheduleByEmployeeId(employeeId, inScheduleList);
-    }
-
-    @GetMapping("schedule/date/{date}")
-    public ResponseEntity<Object> getScheduleOnDate(@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
-        return _employeeService.getSchedulesOnDate(date);
+    @PutMapping("employee/update/training-period/{employeeId}")
+    public ResponseEntity<Object> updateTrainingPeriodByEmployeeId(@PathVariable String employeeId,
+                                                                   @RequestBody Set<TrainingPeriod> inTrainingPeriodList) {
+        return _employeeService.updateTrainingPeriodsByEmployeeId(employeeId, inTrainingPeriodList);
     }
 }

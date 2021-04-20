@@ -4,10 +4,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,22 +16,22 @@ public class Employee {
     @Column(name = "employee_id")
     String employeeId;
 
-    @OneToMany(targetEntity = Schedule.class, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    Set<Schedule> trainingPeriod;
+    @OneToMany(targetEntity = TrainingPeriod.class, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    Set<TrainingPeriod> trainingPeriods;
 
     public String getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(String inEmployeeId) {
+    public void setEmployeeId(final String inEmployeeId) {
         employeeId = inEmployeeId;
     }
 
-    public Set<Schedule> getTrainingPeriod() {
-        return trainingPeriod;
+    public Set<TrainingPeriod> getTrainingPeriods() {
+        return trainingPeriods;
     }
 
-    public void setTrainingPeriod(Set<Schedule> inTrainingPeriod) {
-        trainingPeriod = inTrainingPeriod;
+    public void setTrainingPeriods(final Set<TrainingPeriod> inTrainingPeriod) {
+        trainingPeriods = inTrainingPeriod;
     }
 }

@@ -1,4 +1,4 @@
-# spring-boot
+# Spring Boot Application
 
 This project uses the H2 database.
 

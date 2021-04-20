@@ -13,12 +13,12 @@ To access the database after launching the application:
 
 A REST service that supports these endpoints:
 
-1. POST Mapping - URL - "http://localhost:8080/employee/create" - creates employee and the training period
+1. POST Mapping - URL - "http://localhost:8080//create/employee" - creates employee and the training period
 
 JSON structure Example:
 {
     "employeeId": "xyz@gmail.com",
-    "trainingPeriod": [
+    "trainingPeriods": [
         {
             "startDate": "2021-04-02",
             "endDate": "2021-04-03",
@@ -39,21 +39,21 @@ JSON structure Example:
 }
 
 
-2. GET Mapping - URL - "http://localhost:8080/schedule/{employeeId}" - returns the training period schedule of the given employee ID
+2. GET Mapping - URL - "http://localhost:8080/employee/training-period/{employeeId}" - returns the training period schedule of the given employee ID
 
-eg: "http://localhost:8080/schedule/xyz@gmail.com"
+eg: "http://localhost:8080/employee/training-period/xyz@gmail.com"
 
-3. DELETE Mapping - URL - "http://localhost:8080/cancel/schedule/{employeeId}/{scheduleId}" - deletes corresponding schedule (found using the scheduleId) from training period of given employee id
+3. DELETE Mapping - URL - "http://localhost:8080/employee/cancel/training-period/{employeeId}/{scheduleId}" - deletes corresponding schedule (found using the scheduleId) from training period of given employee id
 
-eg: "http://localhost:8080/cancel/schedule/xyz@gmail.com/1"
+eg: "http://localhost:8080/employee/cancel/training-period/xyz@gmail.com/1"
 
-5. DELETE Mapping - URL - "http://localhost:8080/cancel/schedule/{employeeId}" - deletes the training period for the given employee id
-eg: "http://localhost:8080/cancel/schedule/xyz@gmail.com"
+5. DELETE Mapping - URL - "http://localhost:8080/employee/cancel/all-training-period/{employeeId}" - deletes the training period for the given employee id
+eg: "http://localhost:8080/employee/cancel/all-training-period/xyz@gmail.com"
 
 
-7. PUT Mapping - URL - "http://localhost:8080/update/schedule/{employeeId}" - updates the training period for the given employee id
+7. PUT Mapping - URL - "http://localhost:8080/employee/update/training-period/{employeeId}" - updates the training period for the given employee id
 
-eg: "http://localhost:8080/update/schedule/xyz@gmail.com"
+eg: "http://localhost:8080/employee/update/training-period/xyz@gmail.com"
 
 Sample JSON:
 [{
@@ -65,7 +65,7 @@ Sample JSON:
     "frequency": "WEEKLY"
 }]
 
-9. GET Mapping - URL - "http://localhost:8080/schedule/date/{date}" - returns all the schedules that fall on the given date
+9. GET Mapping - URL - "http://localhost:8080/training-period/date/{date}" - returns all the schedules that fall on the given date
 
-Eg: http://localhost:8080/schedule/date/2021-04-12
+Eg: http://localhost:8080/training-period/date/2021-04-12
 

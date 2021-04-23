@@ -16,7 +16,7 @@ public class Employee {
     @Column(name = "employee_id")
     String employeeId;
 
-    @OneToMany(targetEntity = TrainingPeriod.class, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(targetEntity = TrainingPeriod.class, cascade = CascadeType.ALL, orphanRemoval = true)
     Set<TrainingPeriod> trainingPeriods;
 
     public String getEmployeeId() {

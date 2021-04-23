@@ -27,7 +27,9 @@ public class TrainingPeriodService {
 
         for (final TrainingPeriod trainingPeriod : trainingPeriods) {
 
-            if (isDateAfterEndDate(inDate, trainingPeriod) || isTrainingPeriodNotOnRepeatAndNotOnStartDate(inDate, trainingPeriod)) {
+            if (isDateAfterEndDate(inDate, trainingPeriod) ||
+                    isDateBeforeStartDate(inDate, trainingPeriod) ||
+                    isTrainingPeriodNotOnRepeatAndNotOnStartDate(inDate, trainingPeriod)) {
                 continue;
             }
 
@@ -45,16 +47,6 @@ public class TrainingPeriodService {
         }
 
         return ResponseEntity.accepted().body(result);
-    }
-
-    public boolean saveTrainingPeriod(final Set<TrainingPeriod> inTrainingPeriod) {
-        for (final TrainingPeriod trainingPeriod : inTrainingPeriod) {
-            final TrainingPeriod persistedTrainingPeriod = _trainingPeriodRepository.save(trainingPeriod);
-            if (_trainingPeriodRepository.findById(persistedTrainingPeriod.getTrainingPeriodId()).isEmpty()) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private boolean conditionForWeekdaysCondition(LocalDate inDate, TrainingPeriod inTrainingPeriod) {
@@ -88,5 +80,9 @@ public class TrainingPeriodService {
 
     private boolean isDateAfterEndDate(final LocalDate inDate, final TrainingPeriod inTrainingPeriod) {
         return inDate.isAfter(inTrainingPeriod.getEndDate());
+    }
+
+    private boolean isDateBeforeStartDate(LocalDate inDate, TrainingPeriod trainingPeriod) {
+        return inDate.isBefore(trainingPeriod.getStartDate());
     }
 }

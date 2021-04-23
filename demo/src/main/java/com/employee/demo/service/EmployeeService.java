@@ -22,21 +22,9 @@ public class EmployeeService {
     @Autowired
     private TrainingPeriodRepository _trainingPeriodRepository;
 
-    @Autowired
-    private TrainingPeriodService _trainingPeriodService;
-
     @Transactional
     public ResponseEntity<Object> addEmployee(final Employee inEmployee) {
-        final Employee employee = new Employee();
-        employee.setEmployeeId(inEmployee.getEmployeeId());
-
-        final boolean isTrainingPeriodPersisted = _trainingPeriodService.saveTrainingPeriod(inEmployee.getTrainingPeriods());
-        if (!isTrainingPeriodPersisted) {
-            return FAILED_CREATING_EMPLOYEES_AND_TRAINING_PERIOD;
-        }
-
-        employee.setTrainingPeriods(inEmployee.getTrainingPeriods());
-        _employeeRepository.save(employee);
+        _employeeRepository.save(inEmployee);
         return ResponseEntity.accepted().body("Successfully Created Employee and training Period");
     }
 
@@ -88,10 +76,6 @@ public class EmployeeService {
         }
 
         employee.getTrainingPeriods().clear();
-
-        for (final TrainingPeriod trainingPeriod : inTrainingPeriodList) {
-            _trainingPeriodRepository.save(trainingPeriod);
-        }
         employee.getTrainingPeriods().addAll(inTrainingPeriodList);
 
         _employeeRepository.saveAndFlush(employee);
@@ -100,6 +84,4 @@ public class EmployeeService {
 
     private static final ResponseEntity<Object> EMPLOYEE_NOT_PRESENT_FAILURE =
             ResponseEntity.unprocessableEntity().body("Failed because employee is not present");
-    private static final ResponseEntity<Object> FAILED_CREATING_EMPLOYEES_AND_TRAINING_PERIOD =
-            ResponseEntity.unprocessableEntity().body("Failed creating employees and training period");
 }

@@ -3,8 +3,8 @@ package com.employee.demo.repository;
 import com.employee.demo.model.TrainingPeriod;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
-@RepositoryRestResource(exported = false)
+@Repository
 public interface TrainingPeriodRepository extends JpaRepository<TrainingPeriod, Long> {
 }
